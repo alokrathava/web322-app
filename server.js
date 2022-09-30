@@ -25,7 +25,6 @@ function onHttpStart() {
 }
 
 /*----------------------------Routes--------------------------------------------*/
-
 app.get("/", (req, res) => {
   req.header("Content-Type", "text/html");
   res.status(200).sendFile(path.join(__dirname, "./views/home.html"));
