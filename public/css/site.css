@@ -7,8 +7,9 @@
     margin: 0;
 }
 
-.navbar navbar-default {
+.navbar {
     background-color: #000000;
     border-color: #000000;
     color: #ffffff;
+    font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
