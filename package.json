@@ -1,0 +1,24 @@
+{
+  "name": "web322-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "web322-app"
+  },
+  "keywords": [
+    "web322",
+    "assignments"
+  ],
+  "author": "Alokkumar Rathava",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1"
+  }
+}
