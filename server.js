@@ -1,3 +1,15 @@
+/*********************************************************************************
+ *  WEB322 – Assignment 1
+ *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.
+ *  No part of this assignment has been copied manually or electronically from any other source
+ *  (including websites) or distributed to other students.
+ *
+ *  Name: Alokkumar Rathava Student ID: 145877205 Date: 30/09/2022
+ *
+ *  Online (Cyclic) URL: https://dull-cyan-basket-clam-wear.cyclic.app/
+ *
+ ********************************************************************************/
+
 const express = require("express");
 let app = express();
 let path = require("path");
@@ -44,7 +56,8 @@ app.get("/programs", (req, res) => {
 
 app.get("/students", (req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(200).getAllStudents().then((data) => {
+  data.getAllStudents().then((data) => {
+    res.status(200).send(data);
   }).catch((err) => {
     res.status(404).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
   });
