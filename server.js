@@ -1,4 +1,3 @@
-const http = require("http");
 const express = require("express");
 let app = express();
 let path = require("path");
@@ -45,8 +44,7 @@ app.get("/programs", (req, res) => {
 
 app.get("/students", (req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(200).getPrograms().then((data) => {
-    res.status(200).send(data);
+  res.status(200).getAllStudents().then((data) => {
   }).catch((err) => {
     res.status(404).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
   });
