@@ -15,6 +15,10 @@ let app = express();
 let path = require("path");
 let data = require("./data-service.js");
 
+var statusCode = {
+  OK: 200, NotFound: 404
+};
+
 /*--------------------------------Server--------------------------------------*/
 let HTTP_PORT = process.env.PORT || 80;
 
@@ -27,44 +31,44 @@ function onHttpStart() {
 /*----------------------------Routes--------------------------------------------*/
 app.get("/", (req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(200).sendFile(path.join(__dirname, "./views/home.html"));
+  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/home.html"));
 });
 
 app.get("/about", (req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(200).sendFile(path.join(__dirname, "./views/about.html"));
+  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/about.html"));
 });
 
 app.get("/intlstudents", (req, res) => {
   req.header("Content-Type", "text/html");
   data.getInternationalStudents().then((data) => {
-    res.status(200).send(data);
+    res.status(statusCode.OK).send(data);
   }).catch((err) => {
-    res.status(404).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
+    res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
   });
 });
 
 app.get("/programs", (req, res) => {
   req.header("Content-Type", "text/html");
   data.getPrograms().then((data) => {
-    res.status(200).send(data);
+    res.status(statusCode.OK).send(data);
   }).catch((err) => {
-    res.status(404).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
+    res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
   });
 });
 
 app.get("/students", (req, res) => {
   req.header("Content-Type", "text/html");
   data.getAllStudents().then((data) => {
-    res.status(200).send(data);
+    res.status(statusCode.OK).send(data);
   }).catch((err) => {
-    res.status(404).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
+    res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
   });
 });
 
 app.use((req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(404).sendFile(path.join(__dirname, "./views/404.html"));
+  res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"));
 });
 /*--------------------------------------Get Data---------------------------------*/
 data.initialize().then(() => {
