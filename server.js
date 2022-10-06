@@ -15,12 +15,12 @@ let app = express();
 let path = require("path");
 let data = require("./data-service.js");
 
+let HTTP_PORT = process.env.PORT || 80;
+
 var statusCode = {
   OK: 200, NotFound: 404
 };
-
 /*--------------------------------Server--------------------------------------*/
-let HTTP_PORT = process.env.PORT || 80;
 
 app.use(express.static("public/css"));
 
@@ -31,12 +31,20 @@ function onHttpStart() {
 /*----------------------------Routes--------------------------------------------*/
 app.get("/", (req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/home.html"));
+  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/home.html"), (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 });
 
 app.get("/about", (req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/about.html"));
+  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/about.html"), (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 });
 
 app.get("/intlstudents", (req, res) => {
@@ -44,7 +52,11 @@ app.get("/intlstudents", (req, res) => {
   data.getInternationalStudents().then((data) => {
     res.status(statusCode.OK).send(data);
   }).catch((err) => {
-    res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"), { message: err });
+    res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"), (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
   });
 });
 
@@ -68,7 +80,11 @@ app.get("/students", (req, res) => {
 
 app.use((req, res) => {
   req.header("Content-Type", "text/html");
-  res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"));
+  res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"), (err) => {
+    if (err) {
+      res.status(statusCode.NotFound).send(`Page Not Found ${statusCode.NotFound}`);
+    }
+  });
 });
 /*--------------------------------------Get Data---------------------------------*/
 data.initialize().then(() => {
