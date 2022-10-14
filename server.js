@@ -91,7 +91,7 @@ app.use((req, res) => {
 });
 
 app.get("/students/add", (req, res) => {
-  req.header("Content-Type", "text/html");
+  req.header("Content-Type", "text/html");     
   res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/addStudent.html"), (err) => {
     if (err) {
       res.status(statusCode.NotFound).send(`Page Not Found ${statusCode.NotFound}`);
