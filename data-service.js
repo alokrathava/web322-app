@@ -64,3 +64,57 @@ module.exports.getPrograms = () => {
     }
   });
 };
+/*------------------------------Add Students------------------------*/
+module.exports.addStudent = (studentData) => {
+  return new Promise((resolve, reject) => {
+    if (typeof studentData.isInternationalStudent === undefined) studentData.isInternationalStudent = false; else studentData.isInternationalStudent = true;
+    const arrID = [];
+    let newID;
+    students.forEach((id) => {
+      arrID.push(parseInt(id.studentID));
+    });
+    newID = Math.max(arrID) + 1;
+    newID = toString(newID);
+    studentData.studentID = newID;
+    students.push(studentData);
+  });
+};
+/*----------------------------Get Student By Status--------------------------*/
+module.exports.getStudentsByStatus = (status) => {
+  return new Promise((resolve, reject) => {
+    const statStu = students.filter((stu) => {
+      return stu.status === status;
+    });
+    if (statStu.length > 0) resolve(statStu); else reject("No Results Returned");
+  });
+};
+
+module.exports.getStudentsByProgramCode = (programCode) => {
+  return new Promise((resolve, reject) => {
+    // VARIABLE DECLARATION.
+    const proStu = students.filter((stu) => {
+      return stu.program === programCode;
+    });
+    if (proStu.length > 0) resolve(proStu); else reject("No Results Returned");
+  });
+};
+
+module.exports.getStudentsByExpectedCredential = (credential) => {
+  return new Promise((resolve, reject) => {
+    // VARIABLE DECLARATION.
+    const credStu = students.filter((stu) => {
+      return stu.expectedCredential === credential;
+    });
+    if (credStu.length > 0) resolve(credStu); else reject("No Results Returned");
+  });
+};
+
+module.exports.getStudentById = (sid) => {
+  return new Promise((resolve, reject) => {
+    // VARIABLE DECLARATION.
+    const idStu = students.filter((stu) => {
+      return stu.studentID === sid;
+    });
+    if (idStu.length > 0) resolve(idStu); else reject("No Results Returned");
+  });
+};
