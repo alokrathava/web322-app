@@ -1,5 +1,5 @@
 /*********************************************************************************
- *  WEB322 – Assignment 1
+ *  WEB322 – Assignment 3
  *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.
  *  No part of this assignment has been copied manually or electronically from any other source
  *  (including websites) or distributed to other students.
@@ -14,6 +14,8 @@ const express = require("express");
 let app = express();
 let path = require("path");
 let data = require("./data-service.js");
+let multer = require("multer");
+let fs = require("fs");
 
 let HTTP_PORT = process.env.PORT || 80;
 
@@ -23,6 +25,7 @@ var statusCode = {
 /*--------------------------------Server--------------------------------------*/
 
 app.use(express.static("public/css"));
+app.use(express.urlencoded({ extended: true }));
 
 function onHttpStart() {
   console.log("Express http server listening on: " + HTTP_PORT);
@@ -83,6 +86,36 @@ app.use((req, res) => {
   res.status(statusCode.NotFound).sendFile(path.join(__dirname, "./views/404.html"), (err) => {
     if (err) {
       res.status(statusCode.NotFound).send(`Page Not Found ${statusCode.NotFound}`);
+    }
+  });
+});
+
+app.get("/students/add", (req, res) => {
+  req.header("Content-Type", "text/html");
+  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/addStudent.html"), (err) => {
+    if (err) {
+      res.status(statusCode.NotFound).send(`Page Not Found ${statusCode.NotFound}`);
+    }
+  });
+});
+
+app.get("/images/add", (req, res) => {
+  req.header("Content-Type", "text/html");
+  res.status(statusCode.OK).sendFile(path.join(__dirname, "./views/addImage.html"), (err) => {
+    if (err) {
+      res.status(statusCode.NotFound).send(`Page Not Found ${statusCode.NotFound}`);
+    }
+  });
+});
+
+app.get("images", (req, res) => {
+  fs.readdir("./public/images/uploaded", (err, files) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(statusCode.OK).res.json({
+        images: data
+      });
     }
   });
 });
