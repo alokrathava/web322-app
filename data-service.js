@@ -1,5 +1,5 @@
 /*********************************************************************************
- *  WEB322 – Assignment 1
+ *  WEB322 – Assignment 4
  *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.
  *  No part of this assignment has been copied manually or electronically from any other source
  *  (including websites) or distributed to other students.
@@ -67,7 +67,11 @@ module.exports.getPrograms = () => {
 /*------------------------------Add Students------------------------*/
 module.exports.addStudent = (studentData) => {
   return new Promise((resolve, reject) => {
-    if (typeof studentData.isInternationalStudent === undefined) studentData.isInternationalStudent = false; else studentData.isInternationalStudent = true;
+    if (typeof studentData.isInternationalStudent === undefined) {
+      studentData.isInternationalStudent = false;
+    } else {
+      studentData.isInternationalStudent = true;
+    }
     const arrID = [];
     let newID;
     students.forEach((id) => {
@@ -85,36 +89,50 @@ module.exports.getStudentsByStatus = (status) => {
     const statStu = students.filter((stu) => {
       return stu.status === status;
     });
-    if (statStu.length > 0) resolve(statStu); else reject("No Results Returned");
+    if (statStu.length > 0) {
+      resolve(statStu);
+    } else {
+      reject("No Results Returned");
+    }
   });
 };
-
+/*-----------------------------Get StudentsByProgramCode---------------------*/
 module.exports.getStudentsByProgramCode = (programCode) => {
   return new Promise((resolve, reject) => {
-    // VARIABLE DECLARATION.
     const proStu = students.filter((stu) => {
       return stu.program === programCode;
     });
-    if (proStu.length > 0) resolve(proStu); else reject("No Results Returned");
+    if (proStu.length > 0) {
+      resolve(proStu);
+    } else {
+      reject("No Results Returned");
+    }
   });
 };
 
+/*------------------------------Get StudentsByExpectedCredentials-------------*/
 module.exports.getStudentsByExpectedCredential = (credential) => {
   return new Promise((resolve, reject) => {
-    // VARIABLE DECLARATION.
     const credStu = students.filter((stu) => {
       return stu.expectedCredential === credential;
     });
-    if (credStu.length > 0) resolve(credStu); else reject("No Results Returned");
+    if (credStu.length > 0) {
+      resolve(credStu);
+    } else {
+      reject("No Results Returned");
+    }
   });
 };
-
+/*-------------------------------get by student Id----------------------------*/
 module.exports.getStudentById = (sid) => {
   return new Promise((resolve, reject) => {
-    // VARIABLE DECLARATION.
     const idStu = students.filter((stu) => {
       return stu.studentID === sid;
     });
-    if (idStu.length > 0) resolve(idStu); else reject("No Results Returned");
+    if (idStu.length > 0) {
+      resolve(idStu);
+    } else {
+      reject("No Results Returned");
+    }
   });
 };
